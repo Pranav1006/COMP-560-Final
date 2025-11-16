@@ -26,23 +26,26 @@ model.load_state_dict(torch.load("models/model1.pth"))
 model.eval()
 
 
-first_layer = model.linear_relu_stack[0]
-weights = first_layer.weight.data
+def visualize_digit_importance(model, target_digit):
+    # Start from a blank image
+    img = torch.zeros((1, 784), requires_grad=True)
 
-num_units = 64
-cols = 8
-rows = num_units // cols
+    # Forward pass
+    output = model(img)
 
+    # Score for chosen digit
+    score = output[0, target_digit]
 
-plt.figure(figsize=(12, 6))
+    # Backprop: compute ∂score/∂pixels
+    score.backward()
 
-for i in range(num_units):
-    w = weights[i].reshape(28, 28)
+    # Get saliency and reshape to image
+    saliency = img.grad.detach().reshape(28, 28)
 
-    plt.subplot(rows, cols, i+1)
-    plt.imshow(w, cmap="seismic")
+    plt.imshow(saliency, cmap="hot")
+    plt.title(f"Importance Map for Digit {target_digit}")
     plt.axis("off")
-    plt.title(f"Unit {i}", fontsize=8)
+    plt.show()
 
-plt.tight_layout()
-plt.show()
+for i in range(10):
+    visualize_digit_importance(model, i)
