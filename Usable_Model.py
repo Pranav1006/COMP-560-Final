@@ -25,7 +25,7 @@ class NeuralNetwork(nn.Module):
 
 # load the model
 model = NeuralNetwork()
-model.load_state_dict(torch.load("models/model1.pth"))
+model.load_state_dict(torch.load("models/model1.pth")) # replace with name of whatever saved model
 
 # testing input by input
 test_data = datasets.MNIST(
