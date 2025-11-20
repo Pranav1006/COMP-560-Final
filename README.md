@@ -20,3 +20,5 @@ To visualize the weights of the first layer for each digit in the NN, run Plot_p
 # Libraries
 
 All libraries needed are listed in the requirements.txt.
+
+# [Slide deck](https://docs.google.com/presentation/d/1Q0rcDVQ5jmizZW7BL7V_efnVCYnswZUQJV2-FygUVxw/edit?usp=sharing)
